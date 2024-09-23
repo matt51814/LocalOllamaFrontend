@@ -1,0 +1,36 @@
+body {
+    font-family:'Courier New', Courier, monospace;
+}
+
+h1 {
+    text-align: center;
+    font-size:4em;
+    font-style: oblique;
+}
+
+.conversation-block {
+    padding: 1em;
+    border-style: solid;
+    background-color: rgb(239, 245, 246);
+}
+
+.user-text-box {
+    padding-left: 1em;
+    border-radius: 1em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color:rgb(57, 156, 195);
+    color: white
+}
+
+.llm-text-box {
+    padding-right: 1em;
+    border-radius: 1em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    background-color:rgb(92, 52, 148);
+    color: white;
+    text-align: right;
+}
