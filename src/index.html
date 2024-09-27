@@ -11,12 +11,36 @@
     <hr>
     <div class="conversation-block">
         <div class="user-text-box">
-            <textarea id="user-text" cols="30" rows="1", placeholder="Enter your query here..."></textarea>
+            
         </div>
         <br>
         <div class="llm-text-box">
             <p>Response</p>
         </div>
         <br>
+        <div class="user-text-box">
+            <p>Response</p>
+        </div>
+        <br>
+    </div>
+    <br>
+    <div class="user-input">
+        <textarea id="user-text" cols="97" rows="1", placeholder="Enter your query here..."></textarea>
+        <div id="send-btn" style="cursor: pointer" onclick="myFunction()">
+            <img src="../assets/up-arrow.png" alt="up-arrow" height="60" id="up-arrow">
+        </div>
     </div>
 </body>
+
+
+
+<script>
+    function myFunction() {
+        console.log(document.getElementById('user-text').value)
+        
+
+
+    }
+
+
+</script>
