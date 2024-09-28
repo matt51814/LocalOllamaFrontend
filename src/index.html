@@ -9,9 +9,8 @@
     <h1>Local Ollama Frontend</h1>
 </header>
     <hr>
-    <div class="conversation-block">
-        <div class="user-text-box">
-            
+    <div class="conversation-block" id="conversation-block">
+        <!-- <div class="user-text-box" id="user-text-box-1">
         </div>
         <br>
         <div class="llm-text-box">
@@ -21,24 +20,51 @@
         <div class="user-text-box">
             <p>Response</p>
         </div>
-        <br>
+        <br> -->
     </div>
     <br>
     <div class="user-input">
         <textarea id="user-text" cols="97" rows="1", placeholder="Enter your query here..."></textarea>
-        <div id="send-btn" style="cursor: pointer" onclick="myFunction()">
-            <img src="../assets/up-arrow.png" alt="up-arrow" height="60" id="up-arrow">
+        <div id="send-btn">
+            <img src="../assets/up-arrow.png" alt="up-arrow" height="60" id="up-arrow" 
+            style="cursor: pointer" onclick="myFunction()">
         </div>
     </div>
 </body>
 
 
 
-<script>
-    function myFunction() {
-        console.log(document.getElementById('user-text').value)
-        
+<script type="module">
+    import ollama from "/ollama";
 
+    async function getOllamaResponse(query) {
+        let response = await ollama.chat({
+            model: 'llama3.1',
+            messages: [{ role: 'user', content: `${query}`}],
+        });
+        return response.message.content;
+    }
+
+
+    var userChatN = 1;
+    var responseChatN = 1;
+    function myFunction() {
+        let query = document.getElementById('user-text').value;
+        document.getElementById("conversation-block").innerHTML += `
+        <div class="user-text-box" id="user-text-box-${userChatN}">
+            ${query}
+        </div>
+        <br>`;
+        userChatN += 1;
+        document.getElementById('user-text').value = "";
+
+        const response = getOllamaResponse(query);
+        console.log(response);
+        document.getElementById("conversation-block").innerHTML += `
+        <div class="llm-text-box" id="llm-text-box-${responseChatN}">
+            ${response}
+        </div>
+        <br>`;
 
     }
 
