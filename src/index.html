@@ -34,37 +34,40 @@
 
 
 
-<script type="module">
-    import ollama from "/ollama";
+<script>
+    // import ollama from "/ollama";
 
-    async function getOllamaResponse(query) {
-        let response = await ollama.chat({
-            model: 'llama3.1',
-            messages: [{ role: 'user', content: `${query}`}],
-        });
-        return response.message.content;
-    }
+    // async function getOllamaResponse(query) {
+    //     let response = await ollama.chat({
+    //         model: 'llama3.1',
+    //         messages: [{ role: 'user', content: `${query}`}],
+    //     });
+    //     return response.message.content;
+    // }
 
 
     var userChatN = 1;
     var responseChatN = 1;
     function myFunction() {
         let query = document.getElementById('user-text').value;
-        document.getElementById("conversation-block").innerHTML += `
-        <div class="user-text-box" id="user-text-box-${userChatN}">
+        if (query != '') {
+            document.getElementById("conversation-block").innerHTML += `
+            <div class="user-text-box" id="user-text-box-${userChatN}">
             ${query}
-        </div>
-        <br>`;
-        userChatN += 1;
-        document.getElementById('user-text').value = "";
+            </div>
+            <br>`;
+            userChatN += 1;
+            document.getElementById('user-text').value = ""; 
+        }
 
-        const response = getOllamaResponse(query);
-        console.log(response);
-        document.getElementById("conversation-block").innerHTML += `
-        <div class="llm-text-box" id="llm-text-box-${responseChatN}">
-            ${response}
-        </div>
-        <br>`;
+
+        // const response = getOllamaResponse(query);
+        // console.log(response);
+        // document.getElementById("conversation-block").innerHTML += `
+        // <div class="llm-text-box" id="llm-text-box-${responseChatN}">
+        //     ${response}
+        // </div>
+        // <br>`;
 
     }
 
