@@ -61,6 +61,24 @@
         }
 
 
+        const url = "http://localhost:11434/api/generate";
+
+        const options = {
+        mode: 'cors',
+        headers: {
+            "access-control-allow-origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Methods": "*",
+            "model": "llama3.1",
+            "prompt": query
+        }
+        };
+
+        fetch(url, options)
+        .then( res => res.json() )
+        .then( data => console.log(data) );
+
+
         // const response = getOllamaResponse(query);
         // console.log(response);
         // document.getElementById("conversation-block").innerHTML += `
