@@ -3,7 +3,7 @@
     <title>Local Ollama Frontend</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <script src="ollama.js"></script>
+    <script src="ollama-frontend.js"></script>
 </head>
 <body>
 <header>
@@ -11,24 +11,13 @@
 </header>
     <hr>
     <div class="conversation-block" id="conversation-block">
-        <!-- <div class="user-text-box" id="user-text-box-1">
-        </div>
-        <br>
-        <div class="llm-text-box">
-            <p>Response</p>
-        </div>
-        <br>
-        <div class="user-text-box">
-            <p>Response</p>
-        </div>
-        <br> -->
     </div>
     <br>
     <div class="user-input">
         <textarea id="user-text" cols="97" rows="1", placeholder="Enter your query here..."></textarea>
         <div id="send-btn">
             <img src="../assets/up-arrow.png" alt="up-arrow" height="60" id="up-arrow" 
-            style="cursor: pointer" onclick="myFunction()">
+            style="cursor: pointer" onclick="myFunction()"> 
         </div>
     </div>
 </body>

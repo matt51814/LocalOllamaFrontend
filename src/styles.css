@@ -61,7 +61,7 @@ textarea {
     color: white;
     text-align:left;
     width: 25%;
-    height: 2em;
+    height: auto;
     padding-bottom: .5em;
 }
 
@@ -78,7 +78,7 @@ textarea {
     color: white;
     text-align:left;
     width: 25%;
-    height: 2em;
+    height: auto;
     padding-bottom: .5em;
     padding-top: .5em;
 }
