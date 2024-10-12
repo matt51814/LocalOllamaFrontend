@@ -5,4 +5,4 @@ RUN npm install -g live-server
 EXPOSE 3000
 EXPOSE 11434
 COPY . .
-CMD ["node", "test.js"]
+CMD ["live-server", "--port=3000"]
