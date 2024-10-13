@@ -2,7 +2,6 @@ Goal: aim to make a front end that works well with Ollama LLMs. I want to be abl
 
 
 TODO:
-1. Make Dockerfiles for frontend and backend
-2. Create docker-compose.yml file that can be used to start whole application
-3. Make conversation history available to the model
-4. Work on aesthetics 
+1. Create docker-compose.yml file that can be used to start whole application
+2. Make conversation history available to the model
+3. Work on aesthetics 
