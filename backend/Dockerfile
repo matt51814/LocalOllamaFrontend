@@ -6,4 +6,4 @@ COPY . .
 RUN npm install -g ollama
 RUN npm install -g cors
 RUN npm install -g express
-CMD ["node", "src/backend/ollama-express.js"]
+CMD ["node", "backend/src/ollama-express.js"]
