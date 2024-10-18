@@ -10,6 +10,7 @@ const router = express.Router();
 app.use(express.json());
 app.use(cors(corsOptions));
 const ollama = new Ollama({ host: 'http://host.docker.internal:11434' });
+const messages_list = [];
 
 router.get('/', async (req, res) => {
     try {
@@ -21,16 +22,25 @@ router.get('/', async (req, res) => {
 
 router.post('/ask-query', async (req, res) => {
     const { query } = await req.body;
-
+    console.log(query);
+    var content = `{"role": "user","content": "${query}"}`;
+    messages_list.push(JSON.parse(content));
+    console.log(messages_list);
     try {
         const output = await ollama.chat({
             model: 'llama3.2:1b',
-            messages: [{
-                "role": "user",
-                "content": query
-            }]
+            messages: messages_list
+            // messages: [{
+            //     "role": "user",
+            //     "content": query
+            // }]
         });
+        messages_list.push(output.message);
         res.send(output);
+        //console.log(output.message);
+        // message_history.push(JSON.parse(output["message"]));
+
+        //messages: [{ role: 'user', content: 'Why is the sky blue?' }]
     } catch (error) {
         res.status(500).send('Error processing your request: ' + error.message);
     }
