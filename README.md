@@ -4,6 +4,5 @@ Start the application:
 `docker compose build; docker compose up`
 
 TODO:
-1. Make conversation history available to the model
-2. Ensure send button doesn't move when conversation goes over a few turns
+1. Ensure send button doesn't move when conversation goes over a few turns
 2. Work on aesthetics 
