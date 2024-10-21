@@ -10,6 +10,16 @@ const router = express.Router();
 app.use(express.json());
 app.use(cors(corsOptions));
 const ollama = new Ollama({ host: 'http://host.docker.internal:11434' });
+
+const modelfile = `
+FROM llama3.2:1b
+SYSTEM "Create all your responses in html format with a header summarising your response using a h2 tag."
+`;
+await ollama.create({ model: 'my_model', modelfile: modelfile });
+
+
+
+
 const messages_list = [];
 
 router.get('/', async (req, res) => {
@@ -28,7 +38,7 @@ router.post('/ask-query', async (req, res) => {
     console.log(messages_list);
     try {
         const output = await ollama.chat({
-            model: 'llama3.2:1b',
+            model: 'my_model',//'llama3.2:1b',
             messages: messages_list
             // messages: [{
             //     "role": "user",
