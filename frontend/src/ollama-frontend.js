@@ -86,5 +86,22 @@ function myFunction() {
     return
 }
 
+
+function my2ndFunction(){
+    var input = document.getElementById("user-text");
+    console.log(input);
+    input?.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          myFunction();
+    }});
+    return
+}
+
+
+
 var userChatN = 1;
 var responseChatN = 1;
