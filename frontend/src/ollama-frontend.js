@@ -1,4 +1,4 @@
-function myFunction() {
+function sendMessage() {
     let query = document.getElementById('user-text').value;
     if (query != '') {
         document.getElementById("conversation-block").innerHTML += `
@@ -22,7 +22,7 @@ function myFunction() {
         const url = "http://localhost:3000/api/ask-query";
         data = {
             "query": query
-        }
+        };
         
         requestOptions = {
             method: "POST",
@@ -35,71 +35,59 @@ function myFunction() {
         fetch(url, requestOptions)
             .then(res => res.body)
             .then(rb => {
-                const reader = rb.getReader();
+                const reader = rb.getReader()
                 return new ReadableStream({
                     start(controller) {
                         function push() {
                             reader.read().then(async ({done, value}) => {
                                 if (done) {
-                                //     chatbox.innerHTML += "</p>";
-                                //     console.log("done", done);
-                                    controller.close();
-                                    return;
+                                    controller.close()
+                                    return
                                 }
                                 // Fetch the individual words
-                                await controller.enqueue(value);
-                                let json = JSON.parse(new TextDecoder().decode(value));
+                                // await controller.enqueue(value);
+                                controller.enqueue(value)
+                                let json = JSON.parse(new TextDecoder().decode(value))
                                 console.log(json.response)
-                                //chatbox.innerHTML += json.response;
-                                push();
-                            });
+                                push()
+                            })
                         }
                         
-                        push();
+                        push()
                     }
-                });
+                })
             })
             .then(stream => 
                 new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
             )
             .then(result => {
-                console.log("Result:" + result.message.content);
+                console.log("Result:" + result.message.content)
                 chatbox.innerHTML += '<p>'
-                chatbox.innerHTML += result.message.content;
+                chatbox.innerHTML += result.message.content
                 chatbox.innerHTML += '</p>'
-            })
-            // .then(json => {
-            //     console.log(json.message.content)
-            // });
-        // const response = await fetch(url, requestOptions);
-        // console.log(response.body)
-        // return response;
+            });
     }
 
     queryOllama(query, responseChatN);
     responseChatN += 1;
-    // document.getElementById("conversation-block").innerHTML += `
-    // <div class="llm-text-box" id="llm-text-box-${responseChatN}">
-    //     ${queryOllama(query)}
-    // </div>
-    // <br>`;
     return
-}
+};
 
 
-function my2ndFunction(){
+function onEnterKeypress(){
     var input = document.getElementById("user-text");
-    console.log(input);
-    input?.addEventListener("keypress", function(event) {
+    input?.addEventListener("keyup", function(event) {
         // If the user presses the "Enter" key on the keyboard
-        if (event.key === "Enter") {
+        if (event.code === "Enter") {
           // Cancel the default action, if needed
           event.preventDefault();
           // Trigger the button element with a click
-          myFunction();
+          console.log(input.innerHTML);
+          sendMessage();
+          return
     }});
     return
-}
+};
 
 
 
