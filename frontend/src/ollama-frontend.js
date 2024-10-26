@@ -77,15 +77,23 @@ function sendMessage() {
 function onEnterKeypress(){
     var input = document.getElementById("user-text");
     input?.addEventListener("keyup", function(event) {
-        // If the user presses the "Enter" key on the keyboard
-        if (event.code === "Enter") {
-          // Cancel the default action, if needed
-          event.preventDefault();
-          // Trigger the button element with a click
-          console.log(input.innerHTML);
-          sendMessage();
-          return
-    }});
+
+        if (userChatN == responseChatN) {
+                // If the user presses the "Enter" key on the keyboard
+            if (event.code === "Enter") {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                console.log(input.innerHTML);
+                sendMessage();
+            }
+        } else {
+            return
+        }
+
+
+
+    });
     return
 };
 

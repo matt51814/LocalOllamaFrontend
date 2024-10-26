@@ -28,13 +28,17 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/ask-query', async (req, res) => {
-    const { query } = await req.body;
+    var { query } = await req.body;
     console.log(query);
     //query = query.trim(); // remove whitespace as this breaks everything
     //var content = `{"role": "user","content": "${query}"}`;
+    query = query.split(/\r?\n|\r/).join('');
+    if (query == '') {
+        return
+    }
     var content = JSON.stringify({
         role: "user",
-        content: query.trim()
+        content: query
     });
     messages_list.push(JSON.parse(content));
     console.log(messages_list);
