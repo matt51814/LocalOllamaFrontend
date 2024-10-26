@@ -73,31 +73,19 @@ function sendMessage() {
     return
 };
 
-
-function onEnterKeypress(){
-    var input = document.getElementById("user-text");
-    input?.addEventListener("keyup", function(event) {
-
-        if (userChatN == responseChatN) {
-                // If the user presses the "Enter" key on the keyboard
-            if (event.code === "Enter") {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                console.log(input.innerHTML);
-                sendMessage();
-            }
-        } else {
+const input = document.getElementById('user-text');
+if (input) {
+    console.log(input.value)
+    input.addEventListener("keydown", (event) => {
+        if (event.key != "Enter") {
             return
         }
-
-
-
+        if (userChatN === responseChatN) {
+            event.preventDefault();
+            sendMessage();
+        }
     });
-    return
 };
-
-
 
 var userChatN = 1;
 var responseChatN = 1;

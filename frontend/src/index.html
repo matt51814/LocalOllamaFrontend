@@ -3,7 +3,6 @@
     <title>Local Ollama</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <script src="ollama-frontend.js"></script>
 </head>
 <body>
 <header>
@@ -12,12 +11,13 @@
     <div class="conversation-block" id="conversation-block">
     </div>
     <br>
-    <div class="user-input">
+    <div class="user-input" id="user-input">
         <textarea id="user-text" cols="97" rows="1" 
-        placeholder="Enter your query here..." onkeyup="onEnterKeypress()"></textarea>
+        placeholder="Enter your query here..."></textarea>
         <div id="send-btn">
             <img src="./assets/up-arrow.png" alt="up-arrow" height="60" id="up-arrow" 
             style="cursor: pointer" onclick="sendMessage()"> 
         </div>
     </div>
 </body>
+<script src="ollama-frontend.js"></script>
