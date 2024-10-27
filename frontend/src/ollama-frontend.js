@@ -1,16 +1,24 @@
 function sendMessage() {
+    // get query from textbox
     let query = document.getElementById('user-text').value;
-    if (query != '') {
-        document.getElementById("conversation-block").innerHTML += userTextBoxHtml(userChatN, query);
-        userChatN += 1;
-        document.getElementById('user-text').value = ""; 
+    // if it is empty do nothing
+    if (query === "") {
+        return
     }
+    // display the user conversation turn and increment counter
+    document.getElementById("conversation-block").innerHTML += userTextBoxHtml(userChatN, query);
+    userChatN += 1;
+    // clear the input textbox
+    document.getElementById('user-text').value = ""; 
+    // trigger queryOllama function with the llm conversation turn number
     queryOllama(query, responseChatN);
+    // increment llm conversation turn number
     responseChatN += 1;
     return
 };
 
 function userTextBoxHtml(userChatN, query) {
+    // take the user conversation turn number and the query value to build html
     return `
     <div class="user-text-box" id="user-text-box-${userChatN}">
     <p> ${query} </p>
@@ -20,6 +28,7 @@ function userTextBoxHtml(userChatN, query) {
 
 
 function llmTextBoxHtml(resChatNum){
+    // take the llm conversation turn number to build the html
     return `
     <div class="llm-text-box" id="llm-text-box-${resChatNum}">
         <img class="ollama" src="./assets/ollama.svg" height="30">
@@ -27,18 +36,19 @@ function llmTextBoxHtml(resChatNum){
     <br>`;
 }
 
-
 function createLlmTextBox(resChatNum) {
+    // add the llm text box html element to conversation block div
     document.getElementById("conversation-block").innerHTML += llmTextBoxHtml(resChatNum);
     return    
 }
 
 async function queryOllama(query, resChatNum) {        
-        
+    // create llm text box html element in conversation block div
     createLlmTextBox(resChatNum);
-
-    chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
+    // get this element
+    var chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
     
+    // define the request parameters to query the LLM
     requestOptions = {
         method: "POST",
         headers: {
@@ -49,6 +59,7 @@ async function queryOllama(query, resChatNum) {
         }),
     };
 
+    // send post request to LLM
     fetch(queryUrl, requestOptions)
         .then(res => res.body)
         .then(rb => {
@@ -78,7 +89,7 @@ async function queryOllama(query, resChatNum) {
             new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
         )
         .then(result => {
-            console.log("Result:" + result.message.content)
+            // add to html element
             chatbox.innerHTML += '<div class="llm-text">'
             chatbox.innerHTML += '<p>'
             chatbox.innerHTML += result.message.content
@@ -88,17 +99,22 @@ async function queryOllama(query, resChatNum) {
 };
 
 const input = document.getElementById('user-text');
+// if input not null
 if (input) {
-    console.log(input.value)
+    // on keydown
     input.addEventListener("keydown", (event) => {
+        // if keydown was "Enter"
         if (event.key != "Enter") {
             return
         }
         event.preventDefault();
+        // trigger sendMessage function
         sendMessage();
     });
 };
 
+// number the user and llm conversation turns
 var userChatN = 1;
 var responseChatN = 1;
+// define the url to query llm
 const queryUrl = "http://localhost:3000/api/ask-query";
