@@ -1,11 +1,7 @@
 function sendMessage() {
     let query = document.getElementById('user-text').value;
     if (query != '') {
-        document.getElementById("conversation-block").innerHTML += `
-        <div class="user-text-box" id="user-text-box-${userChatN}">
-        <p> ${query} </p>
-        </div>
-        <br>`;
+        document.getElementById("conversation-block").innerHTML += userTextBoxHtml(userChatN, query);
         userChatN += 1;
         document.getElementById('user-text').value = ""; 
     }
@@ -14,11 +10,26 @@ function sendMessage() {
     return
 };
 
-function createLlmTextBox(resChatNum) {
-    document.getElementById("conversation-block").innerHTML += `
-    <div class="llm-text-box" id="llm-text-box-${resChatNum}">
+function userTextBoxHtml(userChatN, query) {
+    return `
+    <div class="user-text-box" id="user-text-box-${userChatN}">
+    <p> ${query} </p>
     </div>
     <br>`;
+}
+
+
+function llmTextBoxHtml(resChatNum){
+    return `
+    <div class="llm-text-box" id="llm-text-box-${resChatNum}">
+        <img class="ollama" src="./assets/ollama.svg" height="30">
+    </div>
+    <br>`;
+}
+
+
+function createLlmTextBox(resChatNum) {
+    document.getElementById("conversation-block").innerHTML += llmTextBoxHtml(resChatNum);
     return    
 }
 
@@ -68,9 +79,11 @@ async function queryOllama(query, resChatNum) {
         )
         .then(result => {
             console.log("Result:" + result.message.content)
+            chatbox.innerHTML += '<div class="llm-text">'
             chatbox.innerHTML += '<p>'
             chatbox.innerHTML += result.message.content
             chatbox.innerHTML += '</p>'
+            chatbox.innerHTML += '</div>'
         });
 };
 
