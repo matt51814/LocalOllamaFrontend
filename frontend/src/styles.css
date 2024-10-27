@@ -74,6 +74,17 @@ textarea {
     padding-bottom: .5em;
 }
 
+.ollama {
+    float: left;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.llm-text {
+    float: right;
+}
+
 .user-text-box {
     padding-left: 2.5%;
     margin-left: 80%;
