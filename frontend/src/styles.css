@@ -12,7 +12,6 @@ header {
     padding:0.5em;
 }
 
-
 h1 {
     text-align: center;
     font-size:2em;
@@ -50,16 +49,12 @@ textarea {
     float: left;
     border: none;
     outline: none;
-    /* border-style: dashed; */
-    /* border-color: pink; */
     background-color: transparent;
-    /* outline: none; */
     padding: .5em;
     color: white;
     height: 35px;
     width: 90%;
     font-size: 1em; 
-    /* border-radius: 1em; */
     overflow: hidden;
     size-adjust: none;
     resize: none;
@@ -72,18 +67,12 @@ textarea {
     padding-right: 2.5%;
     align-content: left;
     padding-right: 1em;
-    /* border-radius: 1em;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
-    background-color:rgb(92, 52, 148); */
     color: white;
     text-align:left;
     width: 75%;
     height: auto;
     padding-bottom: .5em;
 }
-
 
 .user-text-box {
     padding-left: 2.5%;
@@ -95,9 +84,6 @@ textarea {
     background-color:#676767;
     color: white;
     text-align:left;    
-    /* width: auto; */
-    /* width: auto;
-    height: auto; */
     display: inline-block;
     padding-bottom: .5em;
     padding-top: .5em;

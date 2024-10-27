@@ -13,7 +13,7 @@ const ollama = new Ollama({ host: 'http://host.docker.internal:11434' });
 
 const modelfile = `
 FROM llama3.2:1b
-SYSTEM "Create all your responses in html format with a header summarising your response using a h2 tag. Keep your resposes concise."
+SYSTEM "Create all your responses in html format, use a header summarising your response using a <h2> tag. Use a <p> tag for the main body of the response. Keep your resposes concise."
 `;
 await ollama.create({ model: 'my_model', modelfile: modelfile });
 
@@ -29,9 +29,6 @@ router.get('/', async (req, res) => {
 
 router.post('/ask-query', async (req, res) => {
     var { query } = await req.body;
-    console.log(query);
-    //query = query.trim(); // remove whitespace as this breaks everything
-    //var content = `{"role": "user","content": "${query}"}`;
     query = query.split(/\r?\n|\r/).join('');
     if (query == '') {
         return
