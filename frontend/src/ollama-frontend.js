@@ -59,8 +59,38 @@ async function queryOllama(query, resChatNum) {
         }),
     };
 
+    // // fetch the llama response
+    // fetch(queryUrl, requestOptions)
+    //     // retrieve it's body as ReadableStream
+    //     .then((res) => {
+    //         const reader = res.body.getReader();
+    //         return new ReadableStream({
+    //             start(controller){
+    //                 function push() {
+    //                     reader.read().then(async ({done, value}) => {
+    //                         if (done) {
+    //                             controller.close()
+    //                             return
+    //                         }
+    //                         controller.enqueue(value)
+
+    //                     })
+    //                 }
+    //             }
+    //         })
+        
+        
+        
+        
+         
+        
+    //     })
+
+
+
+
     // send post request to LLM
-    fetch(queryUrl, requestOptions)
+    const result = await fetch(queryUrl, requestOptions)
         .then(res => res.body)
         .then(rb => {
             const reader = rb.getReader()
@@ -76,11 +106,9 @@ async function queryOllama(query, resChatNum) {
                             // await controller.enqueue(value);
                             controller.enqueue(value)
                             let json = JSON.parse(new TextDecoder().decode(value))
-                            console.log(json.response)
                             push()
                         })
                     }
-                    
                     push()
                 }
             })
@@ -88,15 +116,39 @@ async function queryOllama(query, resChatNum) {
         .then(stream => 
             new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
         )
-        .then(result => {
-            // add to html element
-            chatbox.innerHTML += '<div class="llm-text">'
-            chatbox.innerHTML += '<p>'
-            chatbox.innerHTML += result.message.content
-            chatbox.innerHTML += '</p>'
-            chatbox.innerHTML += '</div>'
-        });
+        console.log(result);
+        chatbox.innerHTML += '<div class="llm-text">';
+        console.log(result.message.content.split(' '));
+        for (const element of result.message.content.split(' ')) {
+            // ...use `element`...
+            console.log(element);
+            chatbox.innerHTML += element;
+            chatbox.innerHTML += ' ';
+            sleep(1000);
+
+            // this isn't working correctly because we dont close the div (and potentially other tags until we write all the text in)!!!
+        };
+        chatbox.innerHTML += '</div>';
+        // .then(result => {
+        //     // add to html element
+        //     chatbox.innerHTML += '<div class="llm-text">'
+        //     chatbox.innerHTML += '<p>'
+        //     chatbox.innerHTML += result.message.content
+        //     chatbox.innerHTML += '</p>'
+        //     chatbox.innerHTML += '</div>'
+        // });
 };
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+};  
+
+
 
 const input = document.getElementById('user-text');
 // if input not null
