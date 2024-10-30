@@ -117,18 +117,31 @@ async function queryOllama(query, resChatNum) {
             new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
         )
         console.log(result);
-        chatbox.innerHTML += '<div class="llm-text">';
+        chatbox.innerHTML = '<div class="llm-text"></div>';
         console.log(result.message.content.split(' '));
+        var txt = '';
         for (const element of result.message.content.split(' ')) {
             // ...use `element`...
-            console.log(element);
-            chatbox.innerHTML += element;
-            chatbox.innerHTML += ' ';
+            // console.log(element);
+            txt += `${element} `;
+            // console.log(txt);
+            // document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(
+            //     /</g,
+            //     "&lt;",
+            //   )}</pre>`
+            console.log(`<div class="llm-text">${txt}</div>`);
+            //chatbox.innerHTML = `<div class="llm-text">${txt}</div>`;
+            chatbox.textContent=txt;
+            
+            // chatbox.innerHTML += element;
+            // chatbox.innerHTML += ' ';
+            // chatbox.innerHTML += '</div>'
             sleep(1000);
-
+            // var txt = chatbox.innerHTML.split('</div>')[0];
+            // chatbox.innerHTML = txt;
+            // var txt = element
             // this isn't working correctly because we dont close the div (and potentially other tags until we write all the text in)!!!
         };
-        chatbox.innerHTML += '</div>';
         // .then(result => {
         //     // add to html element
         //     chatbox.innerHTML += '<div class="llm-text">'
