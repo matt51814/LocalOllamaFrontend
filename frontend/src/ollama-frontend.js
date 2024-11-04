@@ -117,31 +117,46 @@ async function queryOllama(query, resChatNum) {
             new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
         )
         console.log(result);
-        chatbox.innerHTML = '<div class="llm-text"></div>';
+        //chatbox.innerHTML = '<div class="llm-text"></div>';
         console.log(result.message.content.split(' '));
         var txt = '';
-        for (const element of result.message.content.split(' ')) {
+        var i = 0;
+        var refreshIntervalId = setInterval(function() {
+            let length = result.message.content.split(' ').length;
+            if (i < length) {
+                txt += `${result.message.content.split(' ')[i]} `;
+                chatbox.innerHTML = `<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">${txt}</div><br>`;
+            } else {
+                clearInterval(refreshIntervalId);
+            }
+            i++;
+        }, 100);
+
+    };
+
+
+
+        // for (const element of result.message.content.split(' ')) {
             // ...use `element`...
             // console.log(element);
-            txt += `${element} `;
+            // txt += `${element} `;
             // console.log(txt);
             // document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(
             //     /</g,
             //     "&lt;",
             //   )}</pre>`
-            console.log(`<div class="llm-text">${txt}</div>`);
+            // console.log(`<div class="llm-text">${txt}</div>`);
             //chatbox.innerHTML = `<div class="llm-text">${txt}</div>`;
-            chatbox.textContent=txt;
+            // chatbox.textContent=txt;
             
             // chatbox.innerHTML += element;
             // chatbox.innerHTML += ' ';
             // chatbox.innerHTML += '</div>'
-            sleep(1000);
             // var txt = chatbox.innerHTML.split('</div>')[0];
             // chatbox.innerHTML = txt;
             // var txt = element
             // this isn't working correctly because we dont close the div (and potentially other tags until we write all the text in)!!!
-        };
+        // };
         // .then(result => {
         //     // add to html element
         //     chatbox.innerHTML += '<div class="llm-text">'
@@ -150,16 +165,9 @@ async function queryOllama(query, resChatNum) {
         //     chatbox.innerHTML += '</p>'
         //     chatbox.innerHTML += '</div>'
         // });
-};
+// };
 
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds){
-        break;
-      }
-    }
-};  
+
 
 
 

@@ -63,12 +63,12 @@ textarea {
 }
 
 .llm-text-box {
+    position: inline-block;
     margin-right: 10%;
-    padding-right: 2.5%;
+    margin-top: 10%;
     align-content: left;
     padding-right: 1em;
     color: white;
-    text-align:left;
     width: 75%;
     height: auto;
     padding-bottom: .5em;
@@ -82,7 +82,8 @@ textarea {
 }
 
 .llm-text {
-    float: right;
+    text-align:left;
+    align-content: left;
 }
 
 .user-text-box {
