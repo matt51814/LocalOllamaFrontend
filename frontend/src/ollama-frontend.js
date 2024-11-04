@@ -44,10 +44,7 @@ function createLlmTextBox(resChatNum) {
 
 async function queryOllama(query, resChatNum) {        
     // create llm text box html element in conversation block div
-    createLlmTextBox(resChatNum);
-    // get this element
-    var chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
-    
+    createLlmTextBox(resChatNum); 
     // define the request parameters to query the LLM
     requestOptions = {
         method: "POST",
@@ -60,48 +57,57 @@ async function queryOllama(query, resChatNum) {
     };
 
     // send post request to LLM
-    const result = await fetch(queryUrl, requestOptions)
-        .then(res => res.body)
-        .then(rb => {
-            const reader = rb.getReader()
-            return new ReadableStream({
-                start(controller) {
-                    function push() {
-                        reader.read().then(async ({done, value}) => {
-                            if (done) {
-                                controller.close()
-                                return
-                            }
-                            // Fetch the individual words
-                            controller.enqueue(value)
-                            let json = JSON.parse(new TextDecoder().decode(value))
-                            push()
-                        })
-                    }
-                    push()
-                }
-            })
-        })
-        .then(stream => 
-            new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
-        )
-
-        var txt = '';
-        var i = 0;
-        var refreshIntervalId = setInterval(function() {
-            let length = result.message.content.split(' ').length;
-            if (i < length) {
-                txt += `${result.message.content.split(' ')[i]} `;
-                chatbox.innerHTML = `<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">${txt}</div><br>`;
-            } else {
-                clearInterval(refreshIntervalId);
-            }
-            i++;
-        }, 100);
-
+    const result = await fetchPostRequest(queryUrl, requestOptions)
+    displayFetchResult(result, resChatNum)
+    return
 };
 
 
+function displayFetchResult(result, resChatNum) {
+    var chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
+    var txt = '';
+    var i = 0;
+    var refreshIntervalId = setInterval(function() {
+        let length = result.message.content.split(' ').length;
+        if (i < length) {
+            txt += `${result.message.content.split(' ')[i]} `;
+            chatbox.innerHTML = `<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">${txt}</div><br>`;
+        } else {
+            clearInterval(refreshIntervalId);
+        }
+        i++;
+    }, 100);
+    return
+};
+
+async function fetchPostRequest(url, options) {
+    const result = await fetch(url, options)
+    .then(res => res.body)
+    .then(rb => {
+        const reader = rb.getReader()
+        return new ReadableStream({
+            start(controller) {
+                function push() {
+                    reader.read().then(async ({done, value}) => {
+                        if (done) {
+                            controller.close()
+                            return
+                        }
+                        // Fetch the individual words
+                        controller.enqueue(value)
+                        let json = JSON.parse(new TextDecoder().decode(value))
+                        push()
+                    })
+                }
+                push()
+            }
+        })
+    })
+    .then(stream => 
+        new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
+    )
+    return result;
+};
 
 const input = document.getElementById('user-text');
 // if input not null
