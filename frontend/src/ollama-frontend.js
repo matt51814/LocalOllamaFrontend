@@ -17,7 +17,7 @@ function sendMessage() {
     return
 };
 
-function userTextBoxHtml(userChatN, query) {
+export function userTextBoxHtml(userChatN, query) {
     // take the user conversation turn number and the query value to build html
     return `
     <div class="user-text-box" id="user-text-box-${userChatN}">
@@ -27,7 +27,7 @@ function userTextBoxHtml(userChatN, query) {
 }
 
 
-function llmTextBoxHtml(resChatNum){
+export function llmTextBoxHtml(resChatNum){
     // take the llm conversation turn number to build the html
     return `
     <div class="llm-text-box" id="llm-text-box-${resChatNum}">
@@ -36,7 +36,7 @@ function llmTextBoxHtml(resChatNum){
     <br>`;
 }
 
-function createLlmTextBox(resChatNum) {
+export function createLlmTextBox(resChatNum) {
     // add the llm text box html element to conversation block div
     document.getElementById("conversation-block").innerHTML += llmTextBoxHtml(resChatNum);
     return    
@@ -46,7 +46,7 @@ async function queryOllama(query, resChatNum) {
     // create llm text box html element in conversation block div
     createLlmTextBox(resChatNum); 
     // define the request parameters to query the LLM
-    requestOptions = {
+    var requestOptions = {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -108,6 +108,7 @@ async function fetchPostRequest(url, options) {
     )
     return result;
 };
+
 
 const input = document.getElementById('user-text');
 // if input not null
