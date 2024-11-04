@@ -17,7 +17,7 @@ const ollama = new Ollama({ host: 'http://host.docker.internal:11434' });
 // create a model file for ollama
 const modelfile = `
 FROM llama3.2:1b
-SYSTEM "You are a helpful assistant. Keep your responses concise."
+SYSTEM "You are a helpful assistant. Please form your response as html and make it logically fit within the following div: "<div class="llm-text"></div>". Make sure the header is aligned to the left. Keep your responses concise."
 `;
 await ollama.create({ model: 'my_model', modelfile: modelfile });
 
