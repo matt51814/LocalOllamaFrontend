@@ -59,36 +59,6 @@ async function queryOllama(query, resChatNum) {
         }),
     };
 
-    // // fetch the llama response
-    // fetch(queryUrl, requestOptions)
-    //     // retrieve it's body as ReadableStream
-    //     .then((res) => {
-    //         const reader = res.body.getReader();
-    //         return new ReadableStream({
-    //             start(controller){
-    //                 function push() {
-    //                     reader.read().then(async ({done, value}) => {
-    //                         if (done) {
-    //                             controller.close()
-    //                             return
-    //                         }
-    //                         controller.enqueue(value)
-
-    //                     })
-    //                 }
-    //             }
-    //         })
-        
-        
-        
-        
-         
-        
-    //     })
-
-
-
-
     // send post request to LLM
     const result = await fetch(queryUrl, requestOptions)
         .then(res => res.body)
@@ -103,7 +73,6 @@ async function queryOllama(query, resChatNum) {
                                 return
                             }
                             // Fetch the individual words
-                            // await controller.enqueue(value);
                             controller.enqueue(value)
                             let json = JSON.parse(new TextDecoder().decode(value))
                             push()
@@ -116,9 +85,7 @@ async function queryOllama(query, resChatNum) {
         .then(stream => 
             new Response(stream, { headers: { "Content-Type": "text/html" } }).json()
         )
-        console.log(result);
-        //chatbox.innerHTML = '<div class="llm-text"></div>';
-        console.log(result.message.content.split(' '));
+
         var txt = '';
         var i = 0;
         var refreshIntervalId = setInterval(function() {
@@ -132,42 +99,7 @@ async function queryOllama(query, resChatNum) {
             i++;
         }, 100);
 
-    };
-
-
-
-        // for (const element of result.message.content.split(' ')) {
-            // ...use `element`...
-            // console.log(element);
-            // txt += `${element} `;
-            // console.log(txt);
-            // document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(
-            //     /</g,
-            //     "&lt;",
-            //   )}</pre>`
-            // console.log(`<div class="llm-text">${txt}</div>`);
-            //chatbox.innerHTML = `<div class="llm-text">${txt}</div>`;
-            // chatbox.textContent=txt;
-            
-            // chatbox.innerHTML += element;
-            // chatbox.innerHTML += ' ';
-            // chatbox.innerHTML += '</div>'
-            // var txt = chatbox.innerHTML.split('</div>')[0];
-            // chatbox.innerHTML = txt;
-            // var txt = element
-            // this isn't working correctly because we dont close the div (and potentially other tags until we write all the text in)!!!
-        // };
-        // .then(result => {
-        //     // add to html element
-        //     chatbox.innerHTML += '<div class="llm-text">'
-        //     chatbox.innerHTML += '<p>'
-        //     chatbox.innerHTML += result.message.content
-        //     chatbox.innerHTML += '</p>'
-        //     chatbox.innerHTML += '</div>'
-        // });
-// };
-
-
+};
 
 
 
