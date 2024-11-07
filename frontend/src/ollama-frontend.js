@@ -109,10 +109,7 @@ async function fetchPostRequest(url, options) {
     return result;
 };
 
-
-const input = document.getElementById('user-text');
-// if input not null
-if (input) {
+function keyDownEvent(input){
     // on keydown
     input.addEventListener("keydown", (event) => {
         // if keydown was "Enter"
@@ -123,6 +120,13 @@ if (input) {
         // trigger sendMessage function
         sendMessage();
     });
+    return
+}
+
+const input = document.getElementById('user-text');
+// if input not null
+if (input) {
+    keyDownEvent(input);
 };
 
 // number the user and llm conversation turns
