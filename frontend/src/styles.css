@@ -82,6 +82,8 @@ textarea {
 }
 
 .llm-text {
+    position: absolute;
+    left: 0;
     text-align:left;
     align-content: left;
 }
