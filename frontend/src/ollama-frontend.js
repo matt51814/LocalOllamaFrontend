@@ -1,4 +1,4 @@
-function sendMessage() {
+export function sendMessage() {
     // get query from textbox
     let query = document.getElementById('user-text').value;
     // if it is empty do nothing
@@ -80,7 +80,7 @@ function displayFetchResult(result, resChatNum) {
     return
 };
 
-async function fetchPostRequest(url, options) {
+export async function fetchPostRequest(url, options) {
     const result = await fetch(url, options)
     .then(res => res.body)
     .then(rb => {

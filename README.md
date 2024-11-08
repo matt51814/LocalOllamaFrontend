@@ -12,7 +12,7 @@ TODO:
 
 I have began writing Javascript tests. To set up testing environment I am currently using the following commands:
 
-1. ```docker run -it -p 3000:3000 -p 11434:11434 --mount type=bind,src="$(pwd)",target=/app alpine ```
+1. ```docker run -it  -p 11434:11434 --mount type=bind,src="$(pwd)",target=/app alpine ```
 2. ```cd app```
 3. ```apk add nodejs npm```
 4. ```npm install```
