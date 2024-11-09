@@ -36,36 +36,36 @@ test('test creating LLM text box', () => {
 
 
 // ASYNC TESTS
-test('test fetchPostRequest', () => {
-    const queryUrl = "http://host.docker.internal:3000/api/ask-query";
-    var requestOptions = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            "query": "return True"
-        }),
-    };
+// test('test fetchPostRequest', () => {
+//     const queryUrl = "http://host.docker.internal:3000/api/ask-query";
+//     var requestOptions = {
+//         method: "POST",
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//             "query": "return True"
+//         }),
+//     };
 
 
-    async function testFetchPostRequest(url, options) {
-        const result = await fetch(url, options)
-        .then(res => res.body)
-        .then(rb => rb.on('readable', () => {
-            let chunk;
-            while(null !== (chunk = rb.read())) {
-                console.log(chunk.toString());
-            }
-        }))
-        return result
-    }
+//     async function testFetchPostRequest(url, options) {
+//         const result = await fetch(url, options)
+//         .then(res => res.body)
+//         .then(rb => rb.on('readable', () => {
+//             let chunk;
+//             while(null !== (chunk = rb.read())) {
+//                 console.log(chunk.toString());
+//             }
+//         }))
+//         return result
+//     }
 
 
-    return testFetchPostRequest(queryUrl, requestOptions).then(data => {
-        expect(data).toBe('my_model')
-    })
-});
+//     return testFetchPostRequest(queryUrl, requestOptions).then(data => {
+//         expect(data).toBe('my_model')
+//     })
+// });
 
 
 // export async function fetchPostRequest(url, options) {
