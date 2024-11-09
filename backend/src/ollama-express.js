@@ -54,7 +54,7 @@ router.post('/ask-query', async (req, res) => {
         });
         messages_list.push(output.message);
         // return output
-        res.send(output);
+        res.status(200).send(output);
     } catch (error) {
         res.status(500).send('Error processing your request: ' + error.message);
     }
