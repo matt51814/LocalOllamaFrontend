@@ -10,13 +10,7 @@ import 'cross-fetch/polyfill';
 test('test get', async () => {
     const queryUrl = "http://host.docker.internal:3000/api";
     var requestOptions = {
-        method: "GET",
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        // body: JSON.stringify({
-        //     "query": "return True"
-        // }),
+        method: "GET"
     };
 
     const response = await fetch(queryUrl, requestOptions);

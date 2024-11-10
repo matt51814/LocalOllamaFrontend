@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { userTextBoxHtml, llmTextBoxHtml, createLlmTextBox, fetchPostRequest } from '../ollama-frontend.js';
+import { userTextBoxHtml, llmTextBoxHtml, createLlmTextBox, displayFetchResult } from '../ollama-frontend.js';
 import 'cross-fetch/polyfill';
 
 test('generates correct user HTML element', () => {
@@ -33,9 +33,48 @@ test('test creating LLM text box', () => {
 });
 
 
+test('display fetch result', () => {
+    document.body.innerHTML = `<div class="llm-text-box" id="llm-text-box-1">
+        <img class="ollama" src="./assets/ollama.svg" height="30">
+    </div>`;
+    displayFetchResult('hello world', '1');
+    expect(document.getElementById('llm-text-box-1').innerHTML).toBe(`
+        <img class="ollama" src="./assets/ollama.svg" height="30">
+    `);
+
+    //<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">hello world</div>;
+});
+
+
+
+// function displayFetchResult(result, resChatNum) {
+//     var chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
+//     var txt = '';
+//     var i = 0;
+//     var refreshIntervalId = setInterval(function() {
+//         let length = result.message.content.split(' ').length;
+//         if (i < length) {
+//             txt += `${result.message.content.split(' ')[i]} `;
+//             chatbox.innerHTML = `<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">${txt}</div><br>`;
+//         } else {
+//             clearInterval(refreshIntervalId);
+//         }
+//         i++;
+//     }, 100);
+//     return
+// };
+
 
 
 // ASYNC TESTS
+
+
+
+
+
+
+
+
 // test('test fetchPostRequest', () => {
 //     const queryUrl = "http://host.docker.internal:3000/api/ask-query";
 //     var requestOptions = {
