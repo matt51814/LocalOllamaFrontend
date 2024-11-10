@@ -58,19 +58,19 @@ async function queryOllama(query, resChatNum) {
 
     // send post request to LLM
     const result = await fetchPostRequest(queryUrl, requestOptions)
-    displayFetchResult(result, resChatNum)
+    displayFetchResult(result.message.content, resChatNum)
     return
 };
 
 
-function displayFetchResult(result, resChatNum) {
+export function displayFetchResult(resultString, resChatNum) {
     var chatbox = document.getElementById(`llm-text-box-${resChatNum}`);
     var txt = '';
     var i = 0;
     var refreshIntervalId = setInterval(function() {
-        let length = result.message.content.split(' ').length;
+        let length = resultString.split(' ').length;
         if (i < length) {
-            txt += `${result.message.content.split(' ')[i]} `;
+            txt += `${resultString.split(' ')[i]} `;
             chatbox.innerHTML = `<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">${txt}</div><br>`;
         } else {
             clearInterval(refreshIntervalId);
