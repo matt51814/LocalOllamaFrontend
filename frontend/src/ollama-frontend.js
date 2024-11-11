@@ -80,7 +80,7 @@ export function displayFetchResult(resultString, resChatNum) {
     return
 };
 
-export async function fetchPostRequest(url, options) {
+async function fetchPostRequest(url, options) {
     const result = await fetch(url, options)
     .then(res => res.body)
     .then(rb => {
