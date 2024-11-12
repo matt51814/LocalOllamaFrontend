@@ -1,0 +1,11 @@
+services:
+  tests:
+    build:
+      dockerfile: ./__tests__/Dockerfile
+    depends_on:
+      - backend
+  backend:
+    build:
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "3000:3000"

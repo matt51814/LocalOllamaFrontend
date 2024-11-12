@@ -3,7 +3,7 @@
  */
 
 
-import {} from '../ollama-express.js';
+import {} from '../backend/src/ollama-express.js';
 import 'cross-fetch/polyfill';
 
 // ASYNC TESTS

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { userTextBoxHtml, llmTextBoxHtml, createLlmTextBox, displayFetchResult } from '../ollama-frontend.js';
+import { userTextBoxHtml, llmTextBoxHtml, createLlmTextBox, displayFetchResult } from '../frontend/src/ollama-frontend.js';
 import {jest} from '@jest/globals';
 import 'cross-fetch/polyfill';
 
@@ -45,5 +45,4 @@ test('display fetch result', () => {
     jest.runAllTimers();
     expect(document.getElementById('llm-text-box-1').innerHTML).toBe(`<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">hello world </div><br>`);
 
-    //<img class="ollama" src="./assets/ollama.svg" height="30"><div class="llm-text">hello world</div>;
 });
